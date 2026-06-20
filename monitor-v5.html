@@ -1,0 +1,140 @@
+﻿<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio Monitor</title>
+    <link rel="stylesheet" href="styles-rebalance.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Simulation monitor</p>
+        <h1>100M Portfolio Monitor</h1>
+        <p class="subline">เทียบกับราคาปิดวันที่ <span id="buyDate">12 Jun 2026</span></p>
+      </div>
+      <div class="actions">
+        <button id="refreshButton" type="button">Refresh</button>
+        <p id="lastUpdated" class="timestamp">กำลังโหลด...</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="summary-grid" aria-label="Portfolio summary">
+        <article class="metric">
+          <span>มูลค่าปัจจุบัน</span>
+          <strong id="currentValue">-</strong>
+        </article>
+        <article class="metric">
+          <span>กำไร/ขาดทุน</span>
+          <strong id="gainLoss">-</strong>
+        </article>
+        <article class="metric">
+          <span>ผลตอบแทนรวม</span>
+          <strong id="portfolioReturn">-</strong>
+        </article>
+        <article class="metric">
+          <span>USD/THB</span>
+          <strong id="fxRate">-</strong>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Allocation Drift</h2>
+          <p id="fxNote">-</p>
+        </div>
+        <div id="allocationBars" class="bars"></div>
+      </section>
+
+      <section class="panel rebalance-panel">
+        <div class="panel-heading">
+          <h2>Rebalance Lab</h2>
+          <p>Adjust target weights and estimate buy/sell amounts in THB.</p>
+        </div>
+        <div class="preset-row" aria-label="Rebalance presets">
+          <button type="button" class="ghost-button" data-preset="original">Original 5/30/45/20</button>
+          <button type="button" class="ghost-button" data-preset="defensive">Defensive</button>
+          <button type="button" class="ghost-button" data-preset="growth">Growth tilt</button>
+          <button type="button" class="ghost-button" data-preset="income">Income tilt</button>
+        </div>
+        <div id="rebalanceControls" class="target-grid"></div>
+        <div class="rebalance-status">
+          <span>Target total</span>
+          <strong id="targetTotal">100%</strong>
+        </div>
+        <div class="table-wrap compact-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Asset class</th>
+                <th>Current</th>
+                <th>Target</th>
+                <th>Gap</th>
+                <th>Trade</th>
+              </tr>
+            </thead>
+            <tbody id="rebalanceBody">
+              <tr>
+                <td colspan="5" class="loading">Waiting for portfolio data...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel watchlist-panel">
+        <div class="panel-heading">
+          <h2>Stock Radar</h2>
+          <p>Research watchlist only, not a buy/sell recommendation.</p>
+        </div>
+        <div class="watch-form">
+          <input id="watchSymbol" type="text" placeholder="Ticker e.g. MSFT, ADVANC.BK" />
+          <input id="watchTheme" type="text" placeholder="Theme e.g. AI, healthcare, dividend" />
+          <input id="watchNote" type="text" placeholder="Why interesting / what to watch" />
+          <button id="addWatchButton" type="button">Add</button>
+          <button id="resetWatchButton" type="button" class="ghost-button">Reset custom</button>
+        </div>
+        <div id="watchlistGrid" class="watch-grid"></div>
+      </section>
+
+      <section class="panel table-panel">
+        <div class="panel-heading">
+          <h2>Holdings</h2>
+          <p>ใช้ราคาปิด official ของ 12 Jun 2026 เป็นฐานคำนวณ</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Investment</th>
+                <th>ราคาในรูป</th>
+                <th>ปิด 12 Jun</th>
+                <th>ล่าสุด</th>
+                <th>มูลค่าปัจจุบัน</th>
+                <th>P/L</th>
+                <th>Return</th>
+                <th>Check</th>
+              </tr>
+            </thead>
+            <tbody id="holdingsBody">
+              <tr>
+                <td colspan="9" class="loading">กำลังดึงข้อมูลล่าสุด...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel notes">
+        <h2>Data Sources</h2>
+        <ul id="sourceNotes"></ul>
+      </section>
+    </main>
+
+    <script src="app-rebalance-fixed.js"></script>
+    <script src="whatif-lab.js"></script>
+  </body>
+</html>
+
