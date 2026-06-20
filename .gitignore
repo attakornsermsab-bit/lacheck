@@ -1,0 +1,8 @@
+monitor-url.txt
+server.log
+server.err.log
+*.log
+node_modules/
+.env
+.DS_Store
+Thumbs.db
